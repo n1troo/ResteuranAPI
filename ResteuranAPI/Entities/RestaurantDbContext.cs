@@ -29,12 +29,17 @@ namespace ResteuranAPI.Entities
             modelBuilder.Entity<Role>()
                 .Property(s => s.Name)
                 .IsRequired();
+            
+            modelBuilder.Entity<Role>().HasData(
+                new Role() {Id = 3, Name = "user" },
+                new Role() {Id = 2, Name = "Manager" },
+                new Role() {Id = 1, Name = "Admin" }
+            );
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(_connectionString);
         }
-
     }
 }

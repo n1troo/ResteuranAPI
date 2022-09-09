@@ -140,6 +140,23 @@ namespace ResteuranAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 3,
+                            Name = "user"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Manager"
+                        },
+                        new
+                        {
+                            Id = 1,
+                            Name = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("ResteuranAPI.Entities.User", b =>
