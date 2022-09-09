@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-
+using ResteuranAPI.Errors;
 using ResteuranAPI.Models;
 using ResteuranAPI.Services;
 
@@ -20,7 +20,28 @@ namespace ResteuranAPI.Controllers
         {
             int idDish = _dishService.Create(restaurantId,createDishDTO);
 
-            return Created($"api/{restaurantId}/dish/{idDish}",null);
+            return Created($"api/restaurant/{restaurantId}/dish/{idDish}",null);
+        }
+
+        [HttpGet("{dishId}")]
+        public ActionResult<DishDTO> Get([FromRoute] int restaurantId, [FromRoute] int dishId)
+        {
+            var dish = _dishService.GetDishById(restaurantId, dishId);
+            return Ok(dish);
+        }
+        
+        [HttpGet]
+        public ActionResult<List<DishDTO>> GetAll([FromRoute] int restaurantId)
+        {
+            var allDishes = _dishService.GetAll(restaurantId);
+            return Ok(allDishes);
+        }
+
+        [HttpDelete]
+        public ActionResult DeleteAll([FromRoute] int restaurantId)
+        {
+            _dishService.DeleteAll(restaurantId);
+            return Ok();
         }
     }
 }

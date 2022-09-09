@@ -18,6 +18,7 @@ public class RequestTimeMiddleware :IMiddleware
         await next.Invoke(context);
         stopwatch.Stop();
 
-        _tLogger.LogInformation($"Time of working in {context.Request.Path} was {stopwatch.Elapsed.Milliseconds} ms");
+     
+        _tLogger.LogInformation($"Execution time of the request \"{context.Request.Path}\" was {stopwatch.Elapsed.Milliseconds} ms");
     }
 }

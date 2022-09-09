@@ -11,12 +11,13 @@ namespace ResteuranAPI
         {
             CreateMap<Restaurant, RestaurantDTO>()
                 .ForMember(m => m.Street, c => c.MapFrom(s => s.Address.Street))
-                .ForMember(s=>s.City,c=>c.MapFrom(s=>s.Address.City))
-                .ForMember(m => m.PostalCode, s => s.MapFrom( c => c.Address.PostalCode));
+                .ForMember(s => s.City, c => c.MapFrom(s => s.Address.City))
+                .ForMember(m => m.PostalCode, s => s.MapFrom(c => c.Address.PostalCode));
 
-            CreateMap<Dish, DishDTO>()
-                .ForMember(s => s.RestaurantId, x => x.MapFrom(s => s.Restaurant.Id));
+            CreateMap<Dish, DishDTO>();
+               // .ForMember(s => s.RestaurantId, x => x.MapFrom(s => s.Restaurant.Id));
 
+            //CreateMap<List<DishDTO>, List<Dish>>();
 
             CreateMap<CreateRestaurantDTO, Restaurant>()
                 .ForMember(s => s.Address,

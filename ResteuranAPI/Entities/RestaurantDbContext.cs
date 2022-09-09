@@ -8,6 +8,8 @@ namespace ResteuranAPI.Entities
         public DbSet<Restaurant> Restaurants { get; set; }
         public DbSet<Dish> Dishes { get; set; }
         public DbSet<Address> Addresses { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -17,6 +19,14 @@ namespace ResteuranAPI.Entities
                 .HasMaxLength(25);
 
             modelBuilder.Entity<Dish>()
+                .Property(s => s.Name)
+                .IsRequired();
+
+            modelBuilder.Entity<User>()
+                .Property(s => s.Email)
+                .IsRequired();
+            
+            modelBuilder.Entity<Role>()
                 .Property(s => s.Name)
                 .IsRequired();
         }
