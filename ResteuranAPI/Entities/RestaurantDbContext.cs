@@ -31,7 +31,7 @@ namespace ResteuranAPI.Entities
                 .IsRequired();
             
             modelBuilder.Entity<Role>().HasData(
-                new Role() {Id = 3, Name = "user" },
+                new Role() {Id = 3, Name = "User" },
                 new Role() {Id = 2, Name = "Manager" },
                 new Role() {Id = 1, Name = "Admin" }
             );

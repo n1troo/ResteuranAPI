@@ -1,8 +1,13 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Identity;
 using NLog;
 using NLog.Extensions.Logging;
 using NLog.Web;
 using ResteuranAPI.Entities;
 using ResteuranAPI.Middleware;
+using ResteuranAPI.Models;
+using ResteuranAPI.Models.Validators;
 using ResteuranAPI.Services;
 
 var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
@@ -22,6 +27,10 @@ try
     builder.Services.AddScoped<ErrorHandlingMiddlewarece>();
     builder.Services.AddScoped<RequestTimeMiddleware>();
     builder.Services.AddScoped<IDishService, DishService>();
+    builder.Services.AddScoped<IAccountService,AccountService>();
+    builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+    builder.Services.AddScoped<IValidator<RegisterUserDTO>, RegisterUserValidator>();
+    builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
 
 //singleton - raz utworzona podczas trwania aplikacji
 //scoped - za kazdym razem nowy obiekt przy zapytaniu
