@@ -68,3 +68,4 @@ C:\Users\iprafnow\RiderProjects\ResteuranAPI\ResteuranAPI\bin\Debug\net6.0\NLog.
 C:\Users\iprafnow\RiderProjects\ResteuranAPI\ResteuranAPI\bin\Debug\net6.0\FluentValidation.dll
 C:\Users\iprafnow\RiderProjects\ResteuranAPI\ResteuranAPI\bin\Debug\net6.0\FluentValidation.AspNetCore.dll
 C:\Users\iprafnow\RiderProjects\ResteuranAPI\ResteuranAPI\bin\Debug\net6.0\FluentValidation.DependencyInjectionExtensions.dll
+C:\Users\iprafnow\RiderProjects\ResteuranAPI\ResteuranAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

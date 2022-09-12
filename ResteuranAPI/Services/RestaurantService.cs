@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ResteuranAPI.Controllers;
@@ -8,13 +9,14 @@ using ResteuranAPI.Models;
 
 namespace ResteuranAPI.Services;
 
+[Authorize]
 public class RestaurantService : IRestaurantService
 {
     private readonly RestaurantDbContext _context;
     private readonly IMapper _mapper;
     private readonly ILogger<RestaurantService> _logger;
 
-
+    
     public RestaurantService(RestaurantDbContext context, IMapper _mapper, ILogger<RestaurantService> logger )
     {
         _context = context;

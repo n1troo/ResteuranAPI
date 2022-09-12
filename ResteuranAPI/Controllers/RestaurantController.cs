@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ResteuranAPI.Errors;
 using ResteuranAPI.Models;
 using ResteuranAPI.Services;
@@ -16,7 +17,7 @@ public class RestaurantController : ControllerBase
         _restaurantService = restaurantService;
     }
 
-
+    [Authorize]
     [HttpGet]
     public ActionResult<IEnumerable<RestaurantDTO>> GetAll()
     {
@@ -25,6 +26,7 @@ public class RestaurantController : ControllerBase
         return Ok(result);
     }
 
+    [AllowAnonymous]
     [HttpGet("{id:int}")]
     public ActionResult<RestaurantDTO> Get([FromRoute] int id)
     {
@@ -36,7 +38,7 @@ public class RestaurantController : ControllerBase
         return Ok(result);
     }
 
-
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public ActionResult CreateRestaurant([FromBody] CreateRestaurantDTO dto)
     {

@@ -23,12 +23,17 @@ namespace ResteuranAPI.Middleware
                 context.Response.StatusCode = 404;
                 await context.Response.WriteAsync(exception.Message);
             }
+            catch (BadRequestExcetpion exception)
+            {
+                _logger.LogWarning(exception.Message);
+                context.Response.StatusCode = 404;
+                await context.Response.WriteAsync(exception.Message);
+            }
             catch (Exception exception)
             {
                 _logger.LogWarning(exception.Message);
                 context.Response.StatusCode = 500;
                 await context.Response.WriteAsync(exception.Message);
-
             }
         }
     }
