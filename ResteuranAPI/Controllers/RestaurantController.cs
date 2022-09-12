@@ -38,7 +38,7 @@ public class RestaurantController : ControllerBase
         return Ok(result);
     }
 
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin, Manager")]
     [HttpPost]
     public ActionResult CreateRestaurant([FromBody] CreateRestaurantDTO dto)
     {
