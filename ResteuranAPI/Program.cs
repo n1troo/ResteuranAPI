@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using NLog;
 using NLog.Extensions.Logging;
 using NLog.Web;
+using ResteuranAPI.Authorization;
 using ResteuranAPI.Entities;
 using ResteuranAPI.Intefaces;
 using ResteuranAPI.Middleware;
@@ -72,6 +73,8 @@ try
             };
         });
 
+    builder.Services.AddScoped<IAuthorizationHandler, MinimumAgeRequimentHandler>();
+
 
     var app = builder.Build();
 
@@ -101,13 +104,4 @@ finally
 {
     // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
     LogManager.Shutdown();
-}
-
-public class MinimumAgeRequiment : IAuthorizationRequirement
-{
-    public int MinimumAge { get; }
-    public MinimumAgeRequiment(int i)
-    {
-        MinimumAge = i;
-    }
 }

@@ -27,7 +27,7 @@ public class RestaurantController : ControllerBase
         return Ok(result);
     }
 
-    [AllowAnonymous]
+    ///[Authorize(Policy = "AtList20")]
     [HttpGet("{id:int}")]
     public ActionResult<RestaurantDTO> Get([FromRoute] int id)
     {
@@ -39,6 +39,7 @@ public class RestaurantController : ControllerBase
         return Ok(result);
     }
 
+    
     [Authorize(Roles = "Admin, Manager")]
     [HttpPost]
     public ActionResult CreateRestaurant([FromBody] CreateRestaurantDTO dto)
