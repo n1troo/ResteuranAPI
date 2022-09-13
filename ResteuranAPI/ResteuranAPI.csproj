@@ -25,7 +25,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Intefaces" />
+      <Folder Include="Authorization" />
       <Folder Include="Errors\" />
     </ItemGroup>
 

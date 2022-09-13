@@ -2,12 +2,14 @@ using System.Text;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using NLog;
 using NLog.Extensions.Logging;
 using NLog.Web;
 using ResteuranAPI.Entities;
+using ResteuranAPI.Intefaces;
 using ResteuranAPI.Middleware;
 using ResteuranAPI.Models;
 using ResteuranAPI.Models.Validators;
@@ -42,6 +44,11 @@ try
     builder.Services.AddScoped<IValidator<RegisterUserDTO>, RegisterUserValidator>();
     builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
     builder.Services.AddSingleton(configuration);
+    builder.Services.AddAuthorization(options =>
+    {
+        options.AddPolicy("Nationality", localbuilder => localbuilder.RequireClaim("Nationality", "German", "Polish"));
+        options.AddPolicy("AtList20", localbuilder => localbuilder.AddRequirements(new MinimumAgeRequiment(20)) );
+    });
 
     builder.Logging.AddNLog();
 
@@ -94,4 +101,13 @@ finally
 {
     // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
     LogManager.Shutdown();
+}
+
+public class MinimumAgeRequiment : IAuthorizationRequirement
+{
+    public int MinimumAge { get; }
+    public MinimumAgeRequiment(int i)
+    {
+        MinimumAge = i;
+    }
 }

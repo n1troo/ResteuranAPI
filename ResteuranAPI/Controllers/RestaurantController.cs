@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ResteuranAPI.Errors;
+using ResteuranAPI.Intefaces;
 using ResteuranAPI.Models;
 using ResteuranAPI.Services;
 
@@ -17,7 +18,7 @@ public class RestaurantController : ControllerBase
         _restaurantService = restaurantService;
     }
 
-    [Authorize]
+    [Authorize(Policy = "Nationality")]
     [HttpGet]
     public ActionResult<IEnumerable<RestaurantDTO>> GetAll()
     {

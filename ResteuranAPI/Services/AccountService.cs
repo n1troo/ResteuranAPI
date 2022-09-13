@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using ResteuranAPI.Entities;
 using ResteuranAPI.Errors;
+using ResteuranAPI.Intefaces;
 using ResteuranAPI.Models;
 
 namespace ResteuranAPI.Services;
@@ -65,9 +66,15 @@ public class AccountService : IAccountService
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
             new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
             new Claim(ClaimTypes.Role, user.Role.Name),
-            new Claim("Nationality",user.Nationality),
             new Claim("DateOfBrith",user.DateOfBirth.ToShortDateString())
         };
+
+        if (!string.IsNullOrEmpty(user.Nationality))
+        {
+            claims.Add(
+                new Claim("Nationality",user.Nationality)
+                );
+        }
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configurationManager["JWT:Secret"]));
         var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

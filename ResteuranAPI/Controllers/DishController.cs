@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ResteuranAPI.Errors;
+using ResteuranAPI.Intefaces;
 using ResteuranAPI.Models;
-using ResteuranAPI.Services;
 
 namespace ResteuranAPI.Controllers
 {

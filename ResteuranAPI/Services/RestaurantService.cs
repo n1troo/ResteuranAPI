@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ResteuranAPI.Controllers;
 using ResteuranAPI.Entities;
 using ResteuranAPI.Errors;
+using ResteuranAPI.Intefaces;
 using ResteuranAPI.Models;
 
 namespace ResteuranAPI.Services;
@@ -16,14 +16,14 @@ public class RestaurantService : IRestaurantService
     private readonly IMapper _mapper;
     private readonly ILogger<RestaurantService> _logger;
 
-    
-    public RestaurantService(RestaurantDbContext context, IMapper _mapper, ILogger<RestaurantService> logger )
+
+    public RestaurantService(RestaurantDbContext context, IMapper mapper, ILogger<RestaurantService> logger)
     {
         _context = context;
-        this._mapper = _mapper;
+        _mapper = mapper;
         _logger = logger;
     }
-    
+
     public RestaurantDTO GetById(int id)
     {
         var restaurant = _context.Restaurants
@@ -64,7 +64,7 @@ public class RestaurantService : IRestaurantService
         _logger.LogWarning($"Restaurant with id: {id} in DELETE action");
 
         var restaurant = _context.Restaurants.FirstOrDefault(s => s.Id == id);
-        
+
         if (restaurant == null)
             throw new NotFoundException("Restaurant not found");
 

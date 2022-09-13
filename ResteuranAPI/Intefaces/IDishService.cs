@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ResteuranAPI.Models;
 
-namespace ResteuranAPI.Services;
-
+namespace ResteuranAPI.Intefaces;
 public interface IDishService
 {
     int Create(int restaurantId, CreateDishDTO createDishDto);

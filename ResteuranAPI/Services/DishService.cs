@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ResteuranAPI.Entities;
 using ResteuranAPI.Errors;
+using ResteuranAPI.Intefaces;
 using ResteuranAPI.Models;
 
 namespace ResteuranAPI.Services;
@@ -21,7 +22,7 @@ public class DishService : IDishService
     public int Create(int restaurantId, CreateDishDTO createDishDto)
     {
         GetRestaurantById(restaurantId);
-        
+
         var dish = _mapper.Map<Dish>(createDishDto);
         _context.Dishes.Add(dish);
         _context.SaveChanges();
@@ -34,7 +35,7 @@ public class DishService : IDishService
         var dish = GetRestaurantById(restaurantId)
             .Dishes
             .FirstOrDefault(s => s.Id == dishId);
-        
+
         var returnerDish = _mapper.Map<DishDTO>(dish);
 
         return returnerDish;

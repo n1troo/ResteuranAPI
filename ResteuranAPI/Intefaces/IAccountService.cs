@@ -1,6 +1,6 @@
 ﻿using ResteuranAPI.Models;
 
-namespace ResteuranAPI.Services;
+namespace ResteuranAPI.Intefaces;
 
 public interface IAccountService
 {
