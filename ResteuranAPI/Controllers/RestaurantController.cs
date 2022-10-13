@@ -46,7 +46,7 @@ public class RestaurantController : ControllerBase
     
     [Authorize(Roles = "Admin, Manager")]
     [HttpPost]
-    public ActionResult CreateRestaurant([FromBody] CreateRestaurantDTO dto)
+    public ActionResult Create([FromBody] CreateRestaurantDTO dto)
     {
       
         var restaurantId = _restaurantService.CreateRestaurant(dto);
@@ -54,7 +54,7 @@ public class RestaurantController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
-    public ActionResult DeleteRestaurant([FromRoute] int id)
+    public ActionResult Delete([FromRoute] int id)
     {
 
         _restaurantService.DeleteById(id );
