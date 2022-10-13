@@ -1,6 +1,8 @@
 ﻿using ResteuranAPI.Controllers;
 using ResteuranAPI.Models;
 
+using System.Security.Claims;
+
 namespace ResteuranAPI.Intefaces;
 
 public interface IRestaurantService

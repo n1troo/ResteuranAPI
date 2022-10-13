@@ -35,6 +35,7 @@ try
     builder.Services.AddSwaggerGen();
     builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+    builder.Services.AddScoped<IUserContextService, UserContextService>();
     builder.Services.AddDbContext<RestaurantDbContext>();
     builder.Services.AddScoped<IRestaurantService, RestaurantService>();
     builder.Services.AddScoped<ErrorHandlingMiddlewarece>();
@@ -43,6 +44,7 @@ try
     builder.Services.AddScoped<IAccountService, AccountService>();
     builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
     builder.Services.AddScoped<IValidator<RegisterUserDTO>, RegisterUserValidator>();
+    
     builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
     builder.Services.AddSingleton(configuration);
     builder.Services.AddAuthorization(options =>
@@ -74,7 +76,8 @@ try
         });
 
     builder.Services.AddScoped<IAuthorizationHandler, MinimumAgeRequimentHandler>();
-
+    builder.Services.AddScoped<IAuthorizationHandler, ResourceOperationRequirmentHandler>();
+    builder.Services.AddHttpContextAccessor();//dla IHttpContextAccessor
 
     var app = builder.Build();
 

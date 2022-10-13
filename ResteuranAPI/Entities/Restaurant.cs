@@ -12,6 +12,10 @@
         public int AddressId { get; set; }
         public DateTime AddDate { get; set; }
 
+        public int? CreatedById { get; set; }
+
+        public virtual User CreatedBy { set; get; }
+
         public virtual Address Address { get; set; }
         public virtual List<Dish> Dishes { get; set; }
 

@@ -5,6 +5,8 @@ using ResteuranAPI.Intefaces;
 using ResteuranAPI.Models;
 using ResteuranAPI.Services;
 
+using System.Security.Claims;
+
 namespace ResteuranAPI.Controllers;
 
 [Route("api/[controller]")]
@@ -12,10 +14,12 @@ namespace ResteuranAPI.Controllers;
 public class RestaurantController : ControllerBase
 {
     private readonly IRestaurantService _restaurantService;
+    private readonly IUserContextService _userContextService;
 
-    public RestaurantController(IRestaurantService restaurantService)
+    public RestaurantController(IRestaurantService restaurantService, IUserContextService userContextService)
     {
         _restaurantService = restaurantService;
+        _userContextService = userContextService;
     }
 
     [Authorize(Policy = "Nationality")]
@@ -44,6 +48,7 @@ public class RestaurantController : ControllerBase
     [HttpPost]
     public ActionResult CreateRestaurant([FromBody] CreateRestaurantDTO dto)
     {
+      
         var restaurantId = _restaurantService.CreateRestaurant(dto);
         return Created($"/api/restaurant/{restaurantId}", null);
     }
@@ -51,14 +56,15 @@ public class RestaurantController : ControllerBase
     [HttpDelete("{id:int}")]
     public ActionResult DeleteRestaurant([FromRoute] int id)
     {
-        _restaurantService.DeleteById(id);
+
+        _restaurantService.DeleteById(id );
         return NoContent();
     }
 
     [HttpPut("{id:int}")]
     public ActionResult Update([FromBody] UpdateRestaurantDTO dtoupdate, [FromRoute] int id)
     {
-        _restaurantService.UpdateRestaurant(dtoupdate,id);
+        _restaurantService.UpdateRestaurant(dtoupdate, id);
         return Ok();
         
     }

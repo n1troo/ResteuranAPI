@@ -18,6 +18,12 @@ namespace ResteuranAPI.Middleware
             {
                 await next.Invoke(context);
             }
+
+            catch (ForbidException exception)
+            {
+                context.Response.StatusCode = 403;
+               // await context.Response.WriteAsync(exception.Message);
+            }
             catch (NotFoundException exception)
             {
                 context.Response.StatusCode = 404;
