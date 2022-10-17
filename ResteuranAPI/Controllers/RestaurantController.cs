@@ -22,14 +22,15 @@ public class RestaurantController : ControllerBase
 
     [Authorize(Policy = "Nationality")]
     [HttpGet]
-    public ActionResult<IEnumerable<RestaurantDTO>> GetAll()
+    public ActionResult<IEnumerable<RestaurantDTO>> GetAll([FromQuery] string? searchPhase)
     {
-        var result = _restaurantService.GetAll();
+        var result = _restaurantService.GetAll(searchPhase);
 
         return Ok(result);
     }
 
     ///[Authorize(Policy = "AtList20")]
+    [Authorize(Policy = "MinRestaurant")]
     [HttpGet("{id:int}")]
     public ActionResult<RestaurantDTO> Get([FromRoute] int id)
     {

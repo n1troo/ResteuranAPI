@@ -4,6 +4,7 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Data.SqlClient;
 using Microsoft.IdentityModel.Tokens;
 using NLog;
 using NLog.Extensions.Logging;
@@ -49,8 +50,9 @@ try
     builder.Services.AddSingleton(configuration);
     builder.Services.AddAuthorization(options =>
     {
-        options.AddPolicy("Nationality", localbuilder => localbuilder.RequireClaim("Nationality", "German", "Polish"));
+        options.AddPolicy("Nationality", localbuilder => localbuilder.RequireClaim("Nationality", "German", "Poland"));
         options.AddPolicy("AtList20", localbuilder => localbuilder.AddRequirements(new MinimumAgeRequiment(20)) );
+        options.AddPolicy("MinRestaurant", localbuilder => localbuilder.AddRequirements(new CreatedMultipleRestaurantRequirement(2)));
     });
 
     builder.Logging.AddNLog();
@@ -75,6 +77,7 @@ try
             };
         });
 
+    builder.Services.AddScoped<IAuthorizationHandler,CreatedMultipleRestaurantRequirementHanlder>();
     builder.Services.AddScoped<IAuthorizationHandler, MinimumAgeRequimentHandler>();
     builder.Services.AddScoped<IAuthorizationHandler, ResourceOperationRequirmentHandler>();
     builder.Services.AddHttpContextAccessor();//dla IHttpContextAccessor

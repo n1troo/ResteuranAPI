@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
 
 using ResteuranAPI.Authorization;
@@ -51,11 +52,12 @@ public class RestaurantService : IRestaurantService
         return result;
     }
 
-    public IEnumerable<RestaurantDTO> GetAll()
+    public IEnumerable<RestaurantDTO> GetAll(string? searchPhase)
     {
         var restaurants = _context.Restaurants
             .Include(r => r.Address)
             .Include(s => s.Dishes)
+            .Where(s => searchPhase == null || (s.Name.ToLower().Contains(searchPhase.ToLower()) || s.Description.ToLower().Contains(searchPhase.ToLower())))
             .ToList();
 
         var restult = _mapper.Map<List<RestaurantDTO>>(restaurants);

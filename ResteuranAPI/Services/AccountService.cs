@@ -78,7 +78,7 @@ public class AccountService : IAccountService
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configurationManager["JWT:Secret"]));
         var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-        var expires = DateTime.Now.AddMinutes(10);
+        var expires = DateTime.Now.AddHours(10);
 
         var token = new JwtSecurityToken(
             issuer: _configurationManager["JWT:ValidIssuer"],

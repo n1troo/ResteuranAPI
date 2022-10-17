@@ -9,7 +9,7 @@ public interface IRestaurantService
 {
     public void UpdateRestaurant(UpdateRestaurantDTO dtoupdate, int id);
     public void DeleteById(int id);
-    public IEnumerable<RestaurantDTO> GetAll();
+    public IEnumerable<RestaurantDTO> GetAll(string? searchPhase);
     public RestaurantDTO GetById(int id);
     public int CreateRestaurant(CreateRestaurantDTO createRestaurantDto);
 
