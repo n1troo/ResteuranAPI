@@ -24,8 +24,10 @@ public class RegisterUserValidator : AbstractValidator<RegisterUserDTO>
             .Custom((value, context) =>
             {
                 var result = _restaurantDbContext.Users.Any(s => s.Email == value);
-                if (result) context.AddFailure("There is user with this email adress!");
-                ;
+                if (result)
+                {
+                    context.AddFailure("There is user with this email adress!");
+                };
             });
     }
 }

@@ -45,7 +45,9 @@ try
     builder.Services.AddScoped<IAccountService, AccountService>();
     builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
     builder.Services.AddScoped<IValidator<RegisterUserDTO>, RegisterUserValidator>();
-    
+    builder.Services.AddScoped<IValidator<RestaurantQuery>, RestaurantQueryValidator>();
+
+
     builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
     builder.Services.AddSingleton(configuration);
     builder.Services.AddAuthorization(options =>
