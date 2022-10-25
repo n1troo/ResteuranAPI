@@ -52,12 +52,17 @@ public class RestaurantService : IRestaurantService
         return result;
     }
 
-    public IEnumerable<RestaurantDTO> GetAll(string? searchPhase)
+    public IEnumerable<RestaurantDTO> GetAll(RestaurantQuery query)
     {
         var restaurants = _context.Restaurants
             .Include(r => r.Address)
             .Include(s => s.Dishes)
-            .Where(s => searchPhase == null || (s.Name.ToLower().Contains(searchPhase.ToLower()) || s.Description.ToLower().Contains(searchPhase.ToLower())))
+            
+            .Where(s => query.SearchPhase == null || (s.Name.ToLower().Contains(query.SearchPhase.ToLower()) || s.Description.ToLower().Contains(query.SearchPhase.ToLower())))
+            
+            .Skip(query.PageSize * (query.PageNumber - 1))
+            .Take(query.PageSize)
+            
             .ToList();
 
         var restult = _mapper.Map<List<RestaurantDTO>>(restaurants);
