@@ -22,7 +22,7 @@ public class RestaurantController : ControllerBase
 
     [Authorize(Policy = "Nationality")]
     [HttpGet]
-    public ActionResult<IEnumerable<RestaurantDTO>> GetAll([FromQuery] RestaurantQuery restaurantQuery )
+    public ActionResult<PageResults<RestaurantDTO>> GetAll([FromQuery] RestaurantQuery restaurantQuery )
     {
         var result = _restaurantService.GetAll(restaurantQuery);
 

@@ -52,21 +52,29 @@ public class RestaurantService : IRestaurantService
         return result;
     }
 
-    public IEnumerable<RestaurantDTO> GetAll(RestaurantQuery query)
+    public PageResults<RestaurantDTO> GetAll(RestaurantQuery query)
     {
-        var restaurants = _context.Restaurants
+
+        var baseQuery = _context.Restaurants
             .Include(r => r.Address)
             .Include(s => s.Dishes)
-            
-            .Where(s => query.SearchPhase == null || (s.Name.ToLower().Contains(query.SearchPhase.ToLower()) || s.Description.ToLower().Contains(query.SearchPhase.ToLower())))
-            
+
+            .Where(s => query.SearchPhase == null || (s.Name.ToLower().Contains(query.SearchPhase.ToLower()) || s.Description.ToLower().Contains(query.SearchPhase.ToLower())));
+
+        var restaurants = baseQuery
             .Skip(query.PageSize * (query.PageNumber - 1))
             .Take(query.PageSize)
-            
             .ToList();
 
         var restult = _mapper.Map<List<RestaurantDTO>>(restaurants);
-        return restult;
+
+        var totalItemsCount = (int)baseQuery.Count();
+
+        var pageResult = new PageResults<RestaurantDTO>(restult, totalItemsCount, query.PageSize, query.PageNumber);
+
+
+
+        return pageResult;
     }
 
     public int CreateRestaurant(CreateRestaurantDTO createRestaurantDto)
