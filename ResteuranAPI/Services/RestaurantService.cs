@@ -10,6 +10,7 @@ using ResteuranAPI.Errors;
 using ResteuranAPI.Intefaces;
 using ResteuranAPI.Models;
 
+using System.Linq.Expressions;
 using System.Security.Claims;
 
 namespace ResteuranAPI.Services;
@@ -61,6 +62,28 @@ public class RestaurantService : IRestaurantService
 
             .Where(s => query.SearchPhase == null || (s.Name.ToLower().Contains(query.SearchPhase.ToLower()) || s.Description.ToLower().Contains(query.SearchPhase.ToLower())));
 
+
+        if (!string.IsNullOrEmpty(query.SortBy))
+        {
+            //słownik
+            var columnsSelector = new Dictionary<string, Expression<Func<Restaurant, object>>>
+            {
+                {nameof(Restaurant.Name), r=> r.Name },
+                {nameof(Restaurant.Description), r=> r.Description },
+                {nameof(Restaurant.Category), r=> r.Category },
+
+            };
+
+            var selectionColumn = columnsSelector[query.SortBy];
+
+            //baseQuery = query.SortDirection == SortDirection.Ascending ? baseQuery.OrderBy(s=>s.Name) : baseQuery.OrderByDescending(s=>s.Name);
+            //selector
+            baseQuery = 
+                query.SortDirection == SortDirection.Ascending ? 
+                baseQuery.OrderBy(s=> columnsSelector) : baseQuery.OrderByDescending(s=> columnsSelector);
+
+        }
+        
         var restaurants = baseQuery
             .Skip(query.PageSize * (query.PageNumber - 1))
             .Take(query.PageSize)
