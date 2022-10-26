@@ -96,16 +96,20 @@ try
     });
 
     var app = builder.Build();
+   
+    app.UseStaticFiles();
+    app.UseCors("FrontedClient");
+
 
     app.UseMiddleware<ErrorHandlingMiddlewarece>();
     app.UseMiddleware<RequestTimeMiddleware>();
-    app.UseCors("FrontedClient");
-
+    
     if (app.Environment.IsDevelopment())
     {
         app.UseSwagger();
         app.UseSwaggerUI();
     }
+
     
     app.UseHttpsRedirection();
     app.MapControllers();

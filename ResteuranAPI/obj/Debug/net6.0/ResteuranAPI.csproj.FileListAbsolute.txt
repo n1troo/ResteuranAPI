@@ -69,3 +69,4 @@ C:\Users\iprafnow\RiderProjects\ResteuranAPI\ResteuranAPI\obj\Debug\net6.0\refin
 C:\Users\iprafnow\RiderProjects\ResteuranAPI\ResteuranAPI\obj\Debug\net6.0\ResteuranAPI.pdb
 C:\Users\iprafnow\RiderProjects\ResteuranAPI\ResteuranAPI\obj\Debug\net6.0\ResteuranAPI.genruntimeconfig.cache
 C:\Users\iprafnow\RiderProjects\ResteuranAPI\ResteuranAPI\obj\Debug\net6.0\ref\ResteuranAPI.dll
+C:\Users\iprafnow\RiderProjects\ResteuranAPI\ResteuranAPI\bin\Debug\net6.0\ResteuranAPI.staticwebassets.runtime.json

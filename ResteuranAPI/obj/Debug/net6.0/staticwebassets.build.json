@@ -1,11 +1,37 @@
 {
   "Version": 1,
-  "Hash": "i7NraLbAflVkYE4imRFbSnOBNkboneYJeaoTSL0BX5k=",
+  "Hash": "slR0eLIrn7YHswEHQMmV7d7AIZqn/JyrFAcMKZunGHg=",
   "Source": "ResteuranAPI",
   "BasePath": "_content/ResteuranAPI",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "ResteuranAPI\\wwwroot",
+      "Source": "ResteuranAPI",
+      "ContentRoot": "C:\\Users\\iprafnow\\RiderProjects\\ResteuranAPI\\ResteuranAPI\\wwwroot\\",
+      "BasePath": "_content/ResteuranAPI",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\iprafnow\\RiderProjects\\ResteuranAPI\\ResteuranAPI\\wwwroot\\TextFile.txt",
+      "SourceId": "ResteuranAPI",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\iprafnow\\RiderProjects\\ResteuranAPI\\ResteuranAPI\\wwwroot\\",
+      "BasePath": "_content/ResteuranAPI",
+      "RelativePath": "TextFile.txt",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\TextFile.txt"
+    }
+  ]
 }
