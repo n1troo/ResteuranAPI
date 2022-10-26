@@ -80,7 +80,7 @@ public class RestaurantService : IRestaurantService
             //selector
             baseQuery = 
                 query.SortDirection == SortDirection.Ascending ? 
-                baseQuery.OrderBy(s=> columnsSelector) : baseQuery.OrderByDescending(s=> columnsSelector);
+                baseQuery.OrderBy(selectionColumn) : baseQuery.OrderByDescending(selectionColumn);
 
         }
         
