@@ -55,6 +55,13 @@ public class RestaurantService : IRestaurantService
 
     public PageResults<RestaurantDTO> GetAll(RestaurantQuery query)
     {
+        /*
+         * Kolejność wywołania 
+         * WHERE
+         * ORDER BY
+         * SKIP
+         * TAKE
+        */
 
         var baseQuery = _context.Restaurants
             .Include(r => r.Address)

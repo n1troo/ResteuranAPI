@@ -84,10 +84,22 @@ try
     builder.Services.AddScoped<IAuthorizationHandler, ResourceOperationRequirmentHandler>();
     builder.Services.AddHttpContextAccessor();//dla IHttpContextAccessor
 
+    builder.Services.AddCors(options=>
+    {
+        options.AddPolicy("FrontedClient", builder =>
+        {
+            builder.AllowAnyMethod()
+            .AllowAnyHeader()
+            .WithOrigins(configuration["AllowedOrigins"]);  // .WithOrigins("http://localhost:8080");
+
+        });
+    });
+
     var app = builder.Build();
 
     app.UseMiddleware<ErrorHandlingMiddlewarece>();
     app.UseMiddleware<RequestTimeMiddleware>();
+    app.UseCors("FrontedClient");
 
     if (app.Environment.IsDevelopment())
     {
