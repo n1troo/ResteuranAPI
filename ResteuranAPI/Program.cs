@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Text;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -29,12 +30,16 @@ try
 {
     var builder = WebApplication.CreateBuilder(args);
 
+    builder.Logging.ClearProviders();
+    builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
+    builder.Host.UseNLog();
+
     var configuration = builder.Configuration;
 
     builder.Services.AddControllers();
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
-    builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+    builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
     builder.Services.AddScoped<IUserContextService, UserContextService>();
    
@@ -48,7 +53,7 @@ try
     builder.Services.AddScoped<IValidator<RestaurantQuery>, RestaurantQueryValidator>();
 
 
-    builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
+    builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters()
     builder.Services.AddSingleton(configuration);
     builder.Services.AddAuthorization(options =>
     {
@@ -56,8 +61,6 @@ try
         options.AddPolicy("AtList20", localbuilder => localbuilder.AddRequirements(new MinimumAgeRequiment(20)) );
         options.AddPolicy("MinRestaurant", localbuilder => localbuilder.AddRequirements(new CreatedMultipleRestaurantRequirement(2)));
     });
-
-    builder.Logging.AddNLog();
 
     builder.Services
         .AddAuthentication(options =>
