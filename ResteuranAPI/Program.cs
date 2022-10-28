@@ -52,7 +52,6 @@ try
     builder.Services.AddScoped<IValidator<RegisterUserDTO>, RegisterUserValidator>();
     builder.Services.AddScoped<IValidator<RestaurantQuery>, RestaurantQueryValidator>();
 
-
     builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
     builder.Services.AddSingleton(configuration);
     builder.Services.AddAuthorization(options =>
