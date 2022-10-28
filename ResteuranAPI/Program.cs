@@ -1,5 +1,7 @@
 using System.Reflection;
 using System.Text;
+using System.Text.Json.Serialization;
+
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -34,9 +36,12 @@ try
     builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
     builder.Host.UseNLog();
 
+
+
     var configuration = builder.Configuration;
 
-    builder.Services.AddControllers();
+    builder.Services.AddControllers().AddJsonOptions(option=> option.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
     builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
@@ -89,9 +94,9 @@ try
 
     builder.Services.AddCors(options=>
     {
-        options.AddPolicy("FrontedClient", builder =>
+        options.AddPolicy("FrontedClient", policyBuilder =>
         {
-            builder.AllowAnyMethod()
+            policyBuilder.AllowAnyMethod()
             .AllowAnyHeader()
             .WithOrigins(configuration["AllowedOrigins"]);  // .WithOrigins("http://localhost:8080");
 
