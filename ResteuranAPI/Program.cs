@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using NLog;
 using NLog.Extensions.Logging;
@@ -30,14 +31,13 @@ try
 
     var configuration = builder.Configuration;
 
-
     builder.Services.AddControllers();
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
     builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
     builder.Services.AddScoped<IUserContextService, UserContextService>();
-    builder.Services.AddDbContext<RestaurantDbContext>();
+   
     builder.Services.AddScoped<IRestaurantService, RestaurantService>();
     builder.Services.AddScoped<ErrorHandlingMiddlewarece>();
     builder.Services.AddScoped<RequestTimeMiddleware>();
@@ -59,7 +59,8 @@ try
 
     builder.Logging.AddNLog();
 
-    builder.Services.AddAuthentication(options =>
+    builder.Services
+        .AddAuthentication(options =>
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
             options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -94,6 +95,8 @@ try
 
         });
     });
+
+    builder.Services.AddDbContext<RestaurantDbContext>(option => option.UseSqlServer(configuration.GetConnectionString("RestaurantDbContext")));
 
     var app = builder.Build();
 
