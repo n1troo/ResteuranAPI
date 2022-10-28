@@ -53,7 +53,7 @@ try
     builder.Services.AddScoped<IValidator<RestaurantQuery>, RestaurantQueryValidator>();
 
 
-    builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters()
+    builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
     builder.Services.AddSingleton(configuration);
     builder.Services.AddAuthorization(options =>
     {
